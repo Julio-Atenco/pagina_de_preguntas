@@ -14,10 +14,13 @@
     <div class="trivia-container">
         <h1 class="text-center mb-4">🏴‍☠️ Trivia de One Piece 🏴‍☠️</h1>
 
-        <div class="d-flex justify-content-around mb-4">
+        <div class="d-flex justify-content-around align-items-center mb-4">
             <span class="badge bg-success score-badge">
                 ✓ Correctas: <strong id="correctas">0</strong>
             </span>
+            <button id="reset-button" class="btn btn-sm btn-outline-secondary" onclick="reiniciarContadores()" title="Reiniciar contadores">
+                🔄
+            </button>
             <span class="badge bg-danger score-badge">
                 ✗ Incorrectas: <strong id="incorrectas">0</strong>
             </span>
