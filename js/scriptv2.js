@@ -8,6 +8,34 @@ let incorrectas = 0;
 let preguntaActual = null;
 
 /**
+ * Inicializa los contadores desde localStorage
+ */
+function inicializarContadores() {
+    // Cargar valores desde localStorage o inicializar en 0
+    correctas = parseInt(localStorage.getItem('correctas')) || 0;
+    incorrectas = parseInt(localStorage.getItem('incorrectas')) || 0;
+    desplegarContadores();
+}
+
+/**
+ * Guarda los contadores en localStorage
+ */
+function guardarContadores() {
+    localStorage.setItem('correctas', correctas);
+    localStorage.setItem('incorrectas', incorrectas);
+}
+
+/**
+ * Reinicia los contadores (función opcional)
+ */
+function reiniciarContadores() {
+    correctas = 0;
+    incorrectas = 0;
+    guardarContadores();
+    desplegarContadores();
+}
+
+/**
  * Obtiene una pregunta de trivia desde la API de Gemini
  */
 async function obtenerPregunta() {
@@ -40,7 +68,6 @@ Genera la pregunta y sus posibles respuestas en formato JSON como el siguiente e
             }),
         });
 
-        // Manejo de errores de HTTP
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`Error HTTP ${response.status}: ${JSON.stringify(errorData)}`);
@@ -49,7 +76,6 @@ Genera la pregunta y sus posibles respuestas en formato JSON como el siguiente e
         const data = await response.json();
         console.log("Respuesta de Gemini:", data);
 
-        // Extracción simple del texto de la respuesta, asumiendo que la respuesta tiene al menos una 'candidate' y 'part'     
         const textResult = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (textResult) {
@@ -141,13 +167,15 @@ function verificarRespuesta(respuestaSeleccionada, respuestaCorrecta, explicacio
         correctas++;
         feedbackContainer.className = 'correct';
         feedbackMessage.textContent = '¡Correcto! 🎉';
-        document.getElementById('correctas').textContent = correctas;
     } else {
         incorrectas++;
         feedbackContainer.className = 'incorrect';
         feedbackMessage.textContent = '❌ Incorrecto';
-        document.getElementById('incorrectas').textContent = incorrectas;
     }
+
+    // Guardar contadores en localStorage
+    guardarContadores();
+    desplegarContadores();
 
     // Mostrar explicación y botón de siguiente
     explanationText.textContent = explicacion;
@@ -169,6 +197,6 @@ document.getElementById('next-button').addEventListener('click', cargarPregunta)
 // Cargar primera pregunta al iniciar la página
 window.onload = () => {
     console.log("Página cargada. Iniciando trivia...");
-    desplegarContadores();
+    inicializarContadores(); // Cargar contadores desde localStorage
     cargarPregunta();
 };
