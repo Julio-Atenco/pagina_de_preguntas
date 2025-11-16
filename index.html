@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trivia de One Piece</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <div class="trivia-container">
+        <h1 class="text-center mb-4">🏴‍☠️ Trivia de One Piece 🏴‍☠️</h1>
+
+        <div class="d-flex justify-content-around mb-4">
+            <span class="badge bg-success score-badge">
+                ✓ Correctas: <strong id="correctas">0</strong>
+            </span>
+            <span class="badge bg-danger score-badge">
+                ✗ Incorrectas: <strong id="incorrectas">0</strong>
+            </span>
+        </div>
+
+        <hr>
+
+        <div id="question-container" class="mb-3">
+            <p id="question" class="text-center text-muted">Cargando pregunta de Gemini...</p>
+            <div id="options" class="d-grid gap-2"></div>
+        </div>
+
+        <div id="feedback-container" style="display: none;">
+            <p id="feedback-message" class="mb-2 fw-bold"></p>
+            <p class="mb-0"><strong>Explicación:</strong> <span id="explanation-text"></span></p>
+        </div>
+
+        <button id="next-button" class="btn btn-primary w-100 mt-3" style="display: none;">
+            Siguiente Pregunta
+        </button>
+    </div>
+
+    <script src="js/scriptv2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
